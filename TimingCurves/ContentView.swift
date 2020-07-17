@@ -1,11 +1,3 @@
-//
-//  ContentView.swift
-//  TimingCurves
-//
-//  Created by Wagner Truppel on 17/07/2020.
-//  Copyright © 2020 wtruppel. All rights reserved.
-//
-
 import SwiftUI
 
 struct ContentView: View {
