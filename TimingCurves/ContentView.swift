@@ -2,8 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State private var unitStartControlPoint: CGPoint = CGPoint(x: 1.0, y: 0.0)
-    @State private var unitEndControlPoint: CGPoint = CGPoint(x: 0.0, y: 1.0)
+    @State private var unitStartControlPoint = BoxedBezierPath.initialUnitStartControlPoint
+    @State private var unitEndControlPoint = BoxedBezierPath.initialUnitEndControlPoint
 
     var body: some View {
         BoxedBezierPath(

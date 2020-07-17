@@ -5,6 +5,9 @@ struct BoxedBezierPath: View {
     @Binding var unitStartControlPoint: CGPoint
     @Binding var unitEndControlPoint: CGPoint
 
+    static let initialUnitStartControlPoint = CGPoint(x: 1.0, y: 0.0)
+    static let initialUnitEndControlPoint = CGPoint(x: 0.0, y: 1.0)
+
     init(
         unitStartControlPoint: Binding<CGPoint>,
         unitEndControlPoint: Binding<CGPoint>
@@ -15,6 +18,7 @@ struct BoxedBezierPath: View {
 
     var body: some View {
         VStack {
+            Spacer()
             GeometryReader { g in
                 self.rectangle(with: g)
                 self.bezierPath(with: g)
@@ -22,15 +26,29 @@ struct BoxedBezierPath: View {
                 self.corners(with: g)
                 self.controlPointHandles(with: g)
             }
+            .frame(
+                width: geometryReaderSize.width,
+                height: geometryReaderSize.height
+            )
+            .border(Color.red)
+            .padding(.bottom, verticalPadding)
+            infoArea()
+            Button(action: {
+                self.unitStartControlPoint = Self.initialUnitStartControlPoint
+                self.unitEndControlPoint = Self.initialUnitEndControlPoint
+            }) { Text("Reset") }
+            Spacer()
         }
     }
 
+    private let geometryReaderSize = CGSize(width: 300, height: 300)
     private let rectangleSizeFraction: CGFloat = 0.35
     private let rectangleLineWidth: CGFloat = 2
     private let curveLineWidth: CGFloat = 3
     private let innerCircleSize: CGFloat = 10
     private let outerCircleSize: CGFloat = 16
     private let circleLineWidth: CGFloat = 2
+    private let verticalPadding: CGFloat = 15
 
 }
 
@@ -174,6 +192,18 @@ private extension BoxedBezierPath {
                         self.unitEndControlPoint = self.unitCP(value.location, g)
                     })
             )
+    }
+
+
+    func infoArea() -> some View {
+        VStack {
+            Text("start.x: \(unitStartControlPoint.x)")
+            Text("start.y: \(unitStartControlPoint.y)")
+                .padding(.bottom, verticalPadding)
+            Text("end.x: \(unitEndControlPoint.x)")
+            Text("end.y: \(unitEndControlPoint.y)")
+        }
+        .padding(.bottom, verticalPadding)
     }
 
 }
