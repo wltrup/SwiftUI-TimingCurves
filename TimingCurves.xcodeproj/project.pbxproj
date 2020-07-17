@@ -13,6 +13,7 @@
 		3BCEAA7024C154C200176577 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BCEAA6F24C154C200176577 /* Assets.xcassets */; };
 		3BCEAA7324C154C200176577 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BCEAA7224C154C200176577 /* Preview Assets.xcassets */; };
 		3BCEAA7624C154C200176577 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BCEAA7424C154C200176577 /* LaunchScreen.storyboard */; };
+		3BCEAA7E24C1564800176577 /* BoxedBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCEAA7D24C1564800176577 /* BoxedBezierPath.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		3BCEAA7224C154C200176577 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3BCEAA7524C154C200176577 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3BCEAA7724C154C200176577 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BCEAA7D24C1564800176577 /* BoxedBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxedBezierPath.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				3BCEAA6924C154BC00176577 /* AppDelegate.swift */,
 				3BCEAA6B24C154BC00176577 /* SceneDelegate.swift */,
 				3BCEAA6D24C154BC00176577 /* ContentView.swift */,
+				3BCEAA7D24C1564800176577 /* BoxedBezierPath.swift */,
 				3BCEAA6F24C154C200176577 /* Assets.xcassets */,
 				3BCEAA7424C154C200176577 /* LaunchScreen.storyboard */,
 				3BCEAA7724C154C200176577 /* Info.plist */,
@@ -146,6 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BCEAA7E24C1564800176577 /* BoxedBezierPath.swift in Sources */,
 				3BCEAA6A24C154BC00176577 /* AppDelegate.swift in Sources */,
 				3BCEAA6C24C154BC00176577 /* SceneDelegate.swift in Sources */,
 				3BCEAA6E24C154BC00176577 /* ContentView.swift in Sources */,
