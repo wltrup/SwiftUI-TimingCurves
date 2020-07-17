@@ -258,13 +258,50 @@ private extension BoxedBezierPath {
             .foregroundColor(Color(UIColor.systemGreen))
     }
 
-    func controlLines(with g: GeometryProxy) -> some View {
-        Path { path in
-            path.move(to: self.bottomLeft(g))
-            path.addLine(to: self.actualCP(self.unitStartControlPoint, g))
-            path.move(to: self.topRight(g))
-            path.addLine(to: self.actualCP(self.unitEndControlPoint, g))
+    struct ControlLinesPath: Shape {
+
+        var bottomLeft: CGPoint
+        var topRight: CGPoint
+        var actualStartCP: CGPoint
+        var actualEndCP: CGPoint
+
+        func path(in rect: CGRect) -> Path {
+            var path = Path()
+            path.move(to: bottomLeft)
+            path.addLine(to: actualStartCP)
+            path.move(to: topRight)
+            path.addLine(to: actualEndCP)
+            return path
         }
+
+        var animatableData: AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>> {
+            get {
+                .init(
+                    .init(actualStartCP.x, actualStartCP.y),
+                    .init(actualEndCP.x, actualEndCP.y)
+                )
+            }
+            set {
+                actualStartCP = CGPoint(
+                    x: newValue.first.first,
+                    y: newValue.first.second
+                )
+                actualEndCP = CGPoint(
+                    x: newValue.second.first,
+                    y: newValue.second.second
+                )
+            }
+        }
+
+    }
+
+    func controlLines(with g: GeometryProxy) -> some View {
+        ControlLinesPath(
+            bottomLeft: bottomLeft(g),
+            topRight: topRight(g),
+            actualStartCP: actualCP(unitStartControlPoint, g),
+            actualEndCP: actualCP(unitEndControlPoint, g)
+        )
         .stroke(lineWidth: self.rectangleLineWidth)
         .foregroundColor(black)
     }
