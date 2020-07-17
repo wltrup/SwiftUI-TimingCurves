@@ -51,8 +51,10 @@ struct BoxedBezierPath: View {
             .frame(width: sliderWidth)
             Spacer()
             Button(action: {
-                self.unitStartControlPoint = Self.initialUnitStartControlPoint
-                self.unitEndControlPoint = Self.initialUnitEndControlPoint
+                withAnimation {
+                    self.unitStartControlPoint = Self.initialUnitStartControlPoint
+                    self.unitEndControlPoint = Self.initialUnitEndControlPoint
+                }
             }) { Text("Reset Curve").foregroundColor(Color(UIColor.systemGreen)) }
             Spacer()
         }
@@ -206,17 +208,54 @@ private extension BoxedBezierPath {
         .position(center(g))
     }
 
-    func bezierPath(with g: GeometryProxy) -> some View {
-        Path { path in
-            path.move(to: self.bottomLeft(g))
+    struct BezierPath: Shape {
+
+        var bottomLeft: CGPoint
+        var topRight: CGPoint
+        var actualStartCP: CGPoint
+        var actualEndCP: CGPoint
+
+        func path(in rect: CGRect) -> Path {
+            var path = Path()
+            path.move(to: bottomLeft)
             path.addCurve(
-                to: self.topRight(g),
-                control1: self.actualCP(self.unitStartControlPoint, g),
-                control2: self.actualCP(self.unitEndControlPoint, g)
+                to: topRight,
+                control1: actualStartCP,
+                control2: actualEndCP
             )
+            return path
         }
-        .stroke(lineWidth: self.curveLineWidth)
-        .foregroundColor(Color(UIColor.systemGreen))
+
+        var animatableData: AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>> {
+            get {
+                .init(
+                    .init(actualStartCP.x, actualStartCP.y),
+                    .init(actualEndCP.x, actualEndCP.y)
+                )
+            }
+            set {
+                actualStartCP = CGPoint(
+                    x: newValue.first.first,
+                    y: newValue.first.second
+                )
+                actualEndCP = CGPoint(
+                    x: newValue.second.first,
+                    y: newValue.second.second
+                )
+            }
+        }
+
+    }
+
+    func bezierPath(with g: GeometryProxy) -> some View {
+        BezierPath(
+            bottomLeft: bottomLeft(g),
+            topRight: topRight(g),
+            actualStartCP: actualCP(unitStartControlPoint, g),
+            actualEndCP: actualCP(unitEndControlPoint, g)
+        )
+            .stroke(lineWidth: self.curveLineWidth)
+            .foregroundColor(Color(UIColor.systemGreen))
     }
 
     func controlLines(with g: GeometryProxy) -> some View {
