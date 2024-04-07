@@ -1,5 +1,7 @@
 .DS_Store
-/.build
+*.playground/*.xcworkspace/xcuserdata/*.xcuserdatad/UserInterfaceState.xcuserstate
 *.xcodeproj/project.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
+*/.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+/.build
 xcuserdata/
