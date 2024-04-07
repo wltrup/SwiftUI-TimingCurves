@@ -11,10 +11,6 @@
 
 ![demo](TimingCurves.gif)
 
-## Author ##
-
-Wagner Truppel, trupwl@gmail.com
-
 ## License ##
 
 **TimingCurves** is available under the MIT license. See the LICENSE file for
